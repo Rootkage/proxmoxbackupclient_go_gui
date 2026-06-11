@@ -154,6 +154,30 @@ func (c *ChunkState) Eof(client *pbscommon.PBSClient) {
 }
 
 func main() {
+	// Check for GUI mode in command line arguments
+	// We need to check before flag.Parse() to avoid conflicts
+	guiMode := false
+	for _, arg := range os.Args {
+		if arg == "-gui" || arg == "--gui" {
+			guiMode = true
+			break
+		}
+	}
+	
+	// If GUI mode is requested, launch the GUI
+	if guiMode {
+		// Remove -gui from args to avoid flag parsing issues
+		newArgs := make([]string, 0, len(os.Args))
+		for _, arg := range os.Args {
+			if arg != "-gui" && arg != "--gui" {
+				newArgs = append(newArgs, arg)
+			}
+		}
+		os.Args = newArgs
+		RunGUI()
+		return
+	}
+	
 	var newchunk *atomic.Uint64 = new(atomic.Uint64)
 	var reusechunk *atomic.Uint64 = new(atomic.Uint64)
 

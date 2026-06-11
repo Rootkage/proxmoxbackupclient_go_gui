@@ -2,7 +2,10 @@ module directorybackup
 
 go 1.24.4
 
-require github.com/cornelk/hashmap v1.0.8
+require (
+	github.com/cornelk/hashmap v1.0.8
+	fyne.io/fyne/v2 v2.5.3
+)
 
 require (
 	github.com/alessio/shellescape v1.4.2 // indirect
